@@ -1,0 +1,15 @@
+{
+  "name": "form-market-mix",
+  "version": "1.0.0",
+  "description": "Project to evaluate programing skills",
+  "entry": "index.html",
+  "scripts": {
+    "start": "live-server"
+  },
+  "keywords": [],
+  "author": "Sebastián Gámez (The-Cracker)",
+  "license": "ISC",
+  "dependencies": {
+    "live-server": "^1.2.2"
+  }
+}

@@ -6,6 +6,11 @@ import Joi from 'joi';
 
 // Definiendo el esquema de usuario
 const userSchema = Joi.object({
+    key: Joi.string()
+            .min(3)
+            .max(30)
+            .alphanum()
+            .required(),
     name: Joi.string()
             .min(3)
             .max(30)
@@ -22,9 +27,7 @@ const userSchema = Joi.object({
         .min(3)
         .max(30)
         .required(),
-    birthDate: Joi.string()
-        .min(3)
-        .max(30)
+    age: Joi.number()
         .required(),
 
 });

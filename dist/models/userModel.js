@@ -10,6 +10,9 @@ const sequelize_1 = require("sequelize");
 const database_1 = __importDefault(require("../database/database"));
 // Definiendo el modelo de usuario
 const UserModel = database_1.default.define('User', {
+    key: {
+        type: sequelize_1.DataTypes.STRING,
+    },
     name: {
         type: sequelize_1.DataTypes.STRING,
     },
@@ -22,8 +25,8 @@ const UserModel = database_1.default.define('User', {
     fullName: {
         type: sequelize_1.DataTypes.STRING,
     },
-    birthDate: {
-        type: sequelize_1.DataTypes.STRING,
+    age: {
+        type: sequelize_1.DataTypes.INTEGER,
     }
 }, { timestamps: false });
 UserModel.sync();

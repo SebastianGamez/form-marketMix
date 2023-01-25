@@ -8,7 +8,9 @@ import db from '../database/database';
 
 // Definiendo el modelo de usuario
 const UserModel = db.define('User', {
-    
+    key: {
+        type: DataTypes.STRING,
+    },
     name: {
         type: DataTypes.STRING,
     },
@@ -21,8 +23,8 @@ const UserModel = db.define('User', {
     fullName: {
         type: DataTypes.STRING,
     },
-    birthDate: {
-        type: DataTypes.STRING,
+    age: {
+        type: DataTypes.INTEGER,
     }
 
 }, {timestamps: false});

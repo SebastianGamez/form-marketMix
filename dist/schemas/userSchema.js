@@ -8,6 +8,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const joi_1 = __importDefault(require("joi"));
 // Definiendo el esquema de usuario
 const userSchema = joi_1.default.object({
+    key: joi_1.default.string()
+        .min(3)
+        .max(30)
+        .alphanum()
+        .required(),
     name: joi_1.default.string()
         .min(3)
         .max(30)
@@ -24,9 +29,7 @@ const userSchema = joi_1.default.object({
         .min(3)
         .max(30)
         .required(),
-    birthDate: joi_1.default.string()
-        .min(3)
-        .max(30)
+    age: joi_1.default.number()
         .required(),
 });
 // Exportando el esquema

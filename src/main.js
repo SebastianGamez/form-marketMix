@@ -10,6 +10,7 @@ const app = createApp({
     })
 });
 
+
 // Componente de formulario
 app.component("form-component", {
     
@@ -100,35 +101,43 @@ app.component("form-component", {
         // Función para enviar el formulario
         handleSubmit() {  
 
-            // Verificar que el usuario no exista
-            if(!this.users.some(user => user.username === this.username)){
-                // Crear id del usuario
-                this.id = this.getRandomId();
-
-                //Crear usuario
-                const user = {
-                    id: this.id,
-                    name: this.name,
-                    lastName: this.lastName,
-                    username: this.username,
-                    age: this.getAge(this.birth)
-                };
-
-                // Agregar el usuario
-                this.users.push(user);
-
-                // Mostrar mensaje de éxito
-                swal('Buen trabajo', 'Usuario registrado con éxito', 'success');
-
-                // Restablecer los campos
-                this.name = '';
-                this.lastName = '';
-                this.username = '';
-                this.birth ='';
+            if(this.name === '' || this.lastName === '' || this.username === '' || this.birth === ''){
+               swal('Error', 'Todos los campos son obligatorios', 'error');
             }
-            else {
-                // Mostrar mensaje de error
-                swal('Error', 'El usuario ya existe', 'error');
+            else{
+
+                // Verificar que el usuario no exista
+                if(!this.users.some(user => user.username === this.username)){
+                    // Crear id del usuario
+                    this.id = this.getRandomId();
+
+                    //Crear usuario
+                    const user = {
+                        id: this.id,
+                        name: this.name,
+                        lastName: this.lastName,
+                        fullName: `${this.name} ${this.lastName}`,
+                        username: this.username,
+                        age: this.getAge(this.birth)
+                    };
+
+                    // Agregar el usuario
+                    this.users.push(user);
+
+                    // Mostrar mensaje de éxito
+                    swal('Buen trabajo', 'Usuario registrado con éxito', 'success');
+
+                    // Restablecer los campos
+                    this.name = '';
+                    this.lastName = '';
+                    this.username = '';
+                    this.birth ='';
+                }
+                else {
+                    // Mostrar mensaje de error
+                    swal('Error', 'El usuario ya existe', 'error');
+                }
+
             }
 
             // Mostrar los usuarios

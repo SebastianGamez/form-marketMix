@@ -25,7 +25,7 @@ app.use((0, cors_1.default)(corsOptions));
 app.use(express_1.default.json());
 // Routes
 app.use('/api/users', userRoute_1.default);
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 // Server
 app.listen(PORT, () => {
     console.log(`Server on port ${PORT}`);

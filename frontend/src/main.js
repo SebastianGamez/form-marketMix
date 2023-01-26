@@ -131,6 +131,17 @@ app.component("form-component", {
             this.username = '';
             this.birth ='';
 
+            axios.get('http://localhost:4000/api/users/users')
+                .then(({ data })=> {
+                    // Obtener el resultado
+                    const { res } = data;
+                    // Mostrar el resultado en la consola
+                    console.log( res );
+                }).catch(({ response }) => {
+                    // Si hay relacionado con la petición un error, se muestra un mensaje de error en la consola
+                    console.log(response.data.res);
+                });
+
         }
     }
 

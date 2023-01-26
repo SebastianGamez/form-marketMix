@@ -15,7 +15,7 @@ const app = createApp({
 app.component("form-component", {
     
     template: `
-        <form @submit.prevent="handleSubmit" class="container border d-flex flex-column justify-content-center align-items-center p-4 rounded-5" style="max-width: 500px; min-width: 300px">
+        <form @submit.prevent="handleSubmit" class="container border d-flex flex-column justify-content-center align-items-center p-4 rounded-5" style="max-width: 500px; min-width: 300px height: 500px">
             <div class="form-group w-75">
                 <h1 class="text-white"><b>Formulario de Registro</b></h1>
             </div>
@@ -42,12 +42,10 @@ app.component("form-component", {
     `,
 
     data: () => ({
-        id: '',
         name: '',
         lastName: '',
         username: '',
         birth: '',
-        users: []
     }),
 
     methods: {
@@ -59,28 +57,28 @@ app.component("form-component", {
         getRandomCharacter() {
             return String.fromCharCode(Math.floor(Math.random() * 26) + 65);
         },
-        // Función para generar un id aleatorio
-        getRandomId() {
+        // Función para generar un key aleatorio
+        getRandomKey() {
 
-            // Crear id
-            let id = '';
+            // Crear key
+            let key = '';
 
-            // Generar id
+            // Generar key
             let i = 0;
             while(i < 8){
                 // Añadir un número o un carácter aleatorio
                 if(i % 2 === 0){
                     // Si es par añade un dígito
-                    id += this.getRandomInt(10);
+                    key += this.getRandomInt(10);
                 } else {
                     // Si es impar añade un carácter
-                    id += this.getRandomCharacter();
+                    key += this.getRandomCharacter();
                 }
                 ++i
             }
              
             // Devolver el id
-            return id;
+            return key;
 
         },
         // Función para calcular la edad a partir de una fecha 'aaaa-mm-dd'
@@ -101,47 +99,37 @@ app.component("form-component", {
         // Función para enviar el formulario
         handleSubmit() {  
 
-            if(this.name === '' || this.lastName === '' || this.username === '' || this.birth === ''){
-               swal('Error', 'Todos los campos son obligatorios', 'error');
-            }
-            else{
+            // Obtener el key
+            let key = this.getRandomKey();
 
-                // Verificar que el usuario no exista
-                if(!this.users.some(user => user.username === this.username)){
-                    // Crear id del usuario
-                    this.id = this.getRandomId();
+            //Crear usuario
+            const user = {
+                key: key,
+                name: this.name,
+                lastName: this.lastName,
+                fullName: `${this.name} ${this.lastName}`,
+                username: this.username,
+                age: this.getAge(this.birth)
+            };
 
-                    //Crear usuario
-                    const user = {
-                        id: this.id,
-                        name: this.name,
-                        lastName: this.lastName,
-                        fullName: `${this.name} ${this.lastName}`,
-                        username: this.username,
-                        age: this.getAge(this.birth)
-                    };
+            // Agregar el usuario
+            axios.post('http://localhost:4000/api/users/register', { user: user })
+                .then(({ data })=> {
+                    // Obtener el resultado
+                    const { res } = data;
+                    // Si el resultado es 'Usuario creado con éxito', se muestra un mensaje de éxito
+                    swal('Buen trabajo', `${res}`, 'success');
+                }).catch(({ response }) => {
+                    // Si hay relacionado con la petición un error, se muestra un mensaje de error en la consola
+                    swal('Error', `${response.data.res}`, 'error');
+                    console.log(response.data.res);
+                });
 
-                    // Agregar el usuario
-                    this.users.push(user);
-
-                    // Mostrar mensaje de éxito
-                    swal('Buen trabajo', 'Usuario registrado con éxito', 'success');
-
-                    // Restablecer los campos
-                    this.name = '';
-                    this.lastName = '';
-                    this.username = '';
-                    this.birth ='';
-                }
-                else {
-                    // Mostrar mensaje de error
-                    swal('Error', 'El usuario ya existe', 'error');
-                }
-
-            }
-
-            // Mostrar los usuarios
-            console.log(this.users);
+            // Restablecer los campos
+            this.name = '';
+            this.lastName = '';
+            this.username = '';
+            this.birth ='';
 
         }
     }

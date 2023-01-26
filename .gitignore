@@ -1,6 +1,9 @@
-// Modules
+// dist
+backend/dist/
+
+// modules
 backend/node_modules/
 frontend/node_modules/
 
-//.env
+// .env
 backend/.env

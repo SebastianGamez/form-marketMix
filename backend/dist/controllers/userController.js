@@ -45,8 +45,8 @@ class UserController {
                     status: 200,
                     res: message
                 });
-            res.status(400).json({
-                status: 400,
+            res.status(200).json({
+                status: 200,
                 res: message
             });
         });

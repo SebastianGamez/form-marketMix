@@ -21,6 +21,8 @@
   },
   "homepage": "https://github.com/SebastianGamez/form-marketMix#readme",
   "dependencies": {
+    "@types/cors": "^2.8.13",
+    "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "joi": "^17.7.0",
